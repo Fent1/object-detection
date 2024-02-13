@@ -12,10 +12,10 @@ The following figure shows the feature distribution of the 100 annotated strawbe
 From the feature distribution of the strawberry images shown above, it can be seen that the distribution of features is very scattered, especially the **shape** features of strawberries (features in columns 3 to 8) are relatively sparse compared to **whether strawberries are pickable** (features in columns 1 and 2). The imbalance of features will result in low accuracy of the training results, so we have decided to use multiple methods to address the impact of data feature imbalance.
 
 1. Manually increase the number of **shape** features of strawberries using 300 unannotated strawberry images. The distribution of processed strawberry features is as follows:
-2. 
-3. <img src="https://github.com/Fent1/object-detection/assets/43925272/32ac445a-5cb3-4f51-a0d2-a19867ecc27a" alt="image" width="300" height="auto">
-4.
-5. Assign higher weights to the **shape** features of strawberries during model training to offset the influence of the small number of **shape** features.
+   
+<img src="https://github.com/Fent1/object-detection/assets/43925272/32ac445a-5cb3-4f51-a0d2-a19867ecc27a" alt="image" width="300" height="auto">
+
+2. Assign higher weights to the **shape** features of strawberries during model training to offset the influence of the small number of **shape** features.
 
 ## Model Selection
 This project is more suitable for object detection models because object detection models can accurately detect the positions of objects in images. Among many object detection models, we choose the YOLOv5 framework to train the model for the following reasons:
@@ -23,7 +23,7 @@ This project is more suitable for object detection models because object detecti
 1. The YOLO series models are highly mature object detection models, which are 1000 times faster in training speed compared to traditional CNN models and easy to use.
 2. Although the YOLO series models have been updated to YOLOv8, we choose to use YOLOv5 because the integration of YOLOv8 is not as stable as YOLOv5. When training the model, many errors occurred with YOLOv8, so we choose the more stable and mature YOLOv5 framework, which has feature extraction capabilities second only to YOLOv8.
 
-3. ![image](https://github.com/Fent1/object-detection/assets/43925272/4d902c71-c8c7-41e4-969b-9a5a9ce03112)
+![image](https://github.com/Fent1/object-detection/assets/43925272/4d902c71-c8c7-41e4-969b-9a5a9ce03112)
 
 ## Model Performance
 The mAP_0.5 of the model trained this time is 0.3402. Although the score is very low, the highest score in this competition is only 0.4301, obviously due to the imbalance of strawberry feature distribution in the dataset.
