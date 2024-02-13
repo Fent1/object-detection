@@ -22,7 +22,7 @@
 
 ## 模型表现
 本次训练后模型的mAP_0.5为0.3402，虽然分数很低，但本次比赛中最高分数也仅仅是0.4301，显然是因为数据集中草莓特征分布不平衡的影响导致的。
-![image](https://github.com/Fent1/object-detection/assets/43925272/96f23991-a557-490e-8cfd-2c7f04acb2d5)
+<img src="https://github.com/Fent1/object-detection/assets/43925272/96f23991-a557-490e-8cfd-2c7f04acb2d5" alt="image" width="300" height="auto">
 
 ## 未来解决思路
 使用YOLOv8的segmentation模型，segmentation模型需要的目标物体标准方式相较于普通模型有区别。普通模型使用四边形标注法，即下图所示：
