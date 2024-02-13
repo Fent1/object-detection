@@ -1,5 +1,5 @@
 # Strawberry Recognition
-[Chinese](./readme_en) | English
+[Chinese](./README.md) | English
 ## Background
 The organizers require participants to use the provided data to train models and accurately identify the **shape** and **position** of **pickable** strawberries in 100 images in the test dataset.
 ## Data Processing
