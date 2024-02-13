@@ -11,8 +11,8 @@
 通过上图草莓图片特征分布可以看出特征的分布非常分散，特别是**草莓形状**的特征（第3到8列的特征）数量相对**草莓是否可采摘**（第1,2列特征）非常稀少。特征的不平衡会导致训练结果精度很低，所以我们决定采用多种方式来解决数据特征不平衡的影响。
 
 1. 利用300张未标注草莓图片手动增加**草莓形状**特征的数量，处理后的草莓特征分布如下：
-![image](https://github.com/Fent1/object-detection/assets/43925272/5939d838-9da5-40dc-a20e-8c8c6cd98e99)
-
+<img src="https://github.com/Fent1/object-detection/assets/43925272/32ac445a-5cb3-4f51-a0d2-a19867ecc27a" alt="image" width="300" height="auto">
+![image](https://github.com/Fent1/object-detection/assets/43925272/32ac445a-5cb3-4f51-a0d2-a19867ecc27a)
 2. 在训练模型时为草莓形状的特征赋予更高的权重，以抵消**草莓形状**特征数量少的影响。
 
 ## 模型选择
