@@ -135,6 +135,13 @@
 
 <img src="https://github.com/Fent1/object-detection/assets/43925272/96f23991-a557-490e-8cfd-2c7f04acb2d5" alt="image" width="300" height="auto">
 
+## 模型预测
+根据预测集的结果可以判断，模型能够辨别大多数的**草莓不可采摘**和**草莓可采摘**特征，这是由于这两个特征在训练集中数量庞大。
+而模型能够辨别出少量的**球状草莓**特征，也同样是因为该特征相比于其他草莓形状特征的数量更多。
+
+![image](https://github.com/Fent1/object-detection/assets/43925272/d27745f1-168f-4361-b324-6e8d87ae8320)
+
+
 ## 未来解决思路
 使用YOLOv8的segmentation模型，segmentation模型需要的目标物体标准方式相较于普通模型有区别。普通模型使用四边形标注法，即下图所示：
 ![image](https://github.com/Fent1/object-detection/assets/43925272/478aa519-44f0-41d9-ac3a-f5c8fedbe87a)
