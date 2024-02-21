@@ -47,8 +47,8 @@
               if any(x in k for x in freeze):
                   print(f'freezing {k}')
                   v.requires_grad = False
-
 查看模块名称列表：
+
             for k, v in model.named_parameters():
               print(k)
             
@@ -71,8 +71,10 @@
             model.24.m.2.weight
             model.24.m.2.bias
             """
+            
 骨干层的主要作用是在训练模型时提取训练集中的特征，通过学习目标的特征进而提高自己对特定目标的识别能力。
 纵观模型结构，我们可以看到模型的主干是 0-9 层：
+
             # YOLOv5 v6.0 backbone
             backbone:
             # [from, number, module, args]
@@ -86,6 +88,7 @@
             - [-1, 1, Conv, [1024, 3, 2]]  # 7-P5/32
             - [-1, 3, C3, [1024]]
             - [-1, 1, SPPF, [1024, 5]]  # 9
+            
 因此，我们可以将冻结列表定义为包含所有名称中包含 "model.0.- 模型.9. "的模块：
             python train.py --freeze 10
 由于迁移训练选择的模型一般具有泛化的提取特征能力，冻结骨干架构可以：
