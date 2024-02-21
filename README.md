@@ -118,7 +118,7 @@
      所以冻结骨干层还能减少后续模型训练受到影响；
   3）由于骨干层被冻结，模型不具备学习新特征的能力，后续的模型训练也不存在过拟合的风险。
 
-<img src="https://github.com/Fent1/object-detection/assets/43925272/71d985f7-dbb8-480b-b85f-c47f171e7bea" alt="image" width="400" height="auto">
+<img src="https://github.com/Fent1/object-detection/assets/43925272/71d985f7-dbb8-480b-b85f-c47f171e7bea" alt="image" width="600" height="auto">
 
 冻结骨干层与默认模型相比分数并没有减少很多
 
@@ -128,7 +128,7 @@
  1. YOLO系列模型是高度成熟的目标检测模型，它相较于传统CNN模型训练速度快了1000倍，而且使用方便。
  2. YOLO系列模型已经更新到YOLOv8，但是我们选择使用YOLOv5是因为YOLOv8的集成做得没有YOLOv5稳定，训练模型时出现很多报错，所以我们退而求其次选择更为稳定更成熟的YOLOv5框架，他的特征提取能力是仅次于YOLOv8的。
 
-<img src="https://github.com/Fent1/object-detection/assets/43925272/4d902c71-c8c7-41e4-969b-9a5a9ce03112" alt="image" width="400" height="auto">
+<img src="https://github.com/Fent1/object-detection/assets/43925272/4d902c71-c8c7-41e4-969b-9a5a9ce03112" alt="image" width="600" height="auto">
 
 ## 模型表现
 本次训练后模型的mAP_0.5为0.3402，虽然分数很低，但本次比赛中最高分数也仅仅是0.4301，显然是因为数据集中草莓特征分布不平衡的影响导致的。
