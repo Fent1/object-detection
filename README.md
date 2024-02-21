@@ -29,7 +29,7 @@
 
 <img src="https://github.com/Fent1/object-detection/assets/43925272/32ac445a-5cb3-4f51-a0d2-a19867ecc27a" alt="image" width="300" height="auto">
 
-注：值得注意的是，迁移训练后预测得到的300张被标注图片的准确率与最终模型的分数非常相近，但是迁移训练本身并不是影响模型最终分数的因素。
+值得注意的是，迁移训练后预测得到的300张被标注图片的准确率与最终模型的分数非常相近，但是迁移训练本身并不是影响模型最终分数的因素。
 
 2. 在训练模型时为草莓形状的特征赋予更高的权重，以抵消**草莓形状**特征数量少的影响。
 
@@ -39,53 +39,55 @@
 
 ## 冻结骨干层
 与train.py匹配的所有图层 freeze 在训练开始前，train.py列表中的梯度将被设置为零，从而被冻结。
-    # Freeze
-    freeze = [f'model.{x}.' for x in range(freeze)]  # layers to freeze
-    for k, v in model.named_parameters():
-        v.requires_grad = True  # train all layers
-        if any(x in k for x in freeze):
-            print(f'freezing {k}')
-            v.requires_grad = False
+
+            # Freeze
+            freeze = [f'model.{x}.' for x in range(freeze)]  # layers to freeze
+            for k, v in model.named_parameters():
+              v.requires_grad = True  # train all layers
+              if any(x in k for x in freeze):
+                  print(f'freezing {k}')
+                  v.requires_grad = False
+
 查看模块名称列表：
-    for k, v in model.named_parameters():
-        print(k)
-    
-    """Output:
-    model.0.conv.conv.weight
-    model.0.conv.bn.weight
-    model.0.conv.bn.bias
-    model.1.conv.weight
-    model.1.bn.weight
-    model.1.bn.bias
-    model.2.cv1.conv.weight
-    model.2.cv1.bn.weight
-    ...
-    model.23.m.0.cv2.bn.weight
-    model.23.m.0.cv2.bn.bias
-    model.24.m.0.weight
-    model.24.m.0.bias
-    model.24.m.1.weight
-    model.24.m.1.bias
-    model.24.m.2.weight
-    model.24.m.2.bias
-    """
+            for k, v in model.named_parameters():
+              print(k)
+            
+            """Output:
+            model.0.conv.conv.weight
+            model.0.conv.bn.weight
+            model.0.conv.bn.bias
+            model.1.conv.weight
+            model.1.bn.weight
+            model.1.bn.bias
+            model.2.cv1.conv.weight
+            model.2.cv1.bn.weight
+            ...
+            model.23.m.0.cv2.bn.weight
+            model.23.m.0.cv2.bn.bias
+            model.24.m.0.weight
+            model.24.m.0.bias
+            model.24.m.1.weight
+            model.24.m.1.bias
+            model.24.m.2.weight
+            model.24.m.2.bias
+            """
 骨干层的主要作用是在训练模型时提取训练集中的特征，通过学习目标的特征进而提高自己对特定目标的识别能力。
 纵观模型结构，我们可以看到模型的主干是 0-9 层：
-    # YOLOv5 v6.0 backbone
-    backbone:
-      # [from, number, module, args]
-      - [-1, 1, Conv, [64, 6, 2, 2]]  # 0-P1/2
-      - [-1, 1, Conv, [128, 3, 2]]  # 1-P2/4
-      - [-1, 3, C3, [128]]
-      - [-1, 1, Conv, [256, 3, 2]]  # 3-P3/8
-      - [-1, 6, C3, [256]]
-      - [-1, 1, Conv, [512, 3, 2]]  # 5-P4/16
-      - [-1, 9, C3, [512]]
-      - [-1, 1, Conv, [1024, 3, 2]]  # 7-P5/32
-      - [-1, 3, C3, [1024]]
-      - [-1, 1, SPPF, [1024, 5]]  # 9
+            # YOLOv5 v6.0 backbone
+            backbone:
+            # [from, number, module, args]
+            - [-1, 1, Conv, [64, 6, 2, 2]]  # 0-P1/2
+            - [-1, 1, Conv, [128, 3, 2]]  # 1-P2/4
+            - [-1, 3, C3, [128]]
+            - [-1, 1, Conv, [256, 3, 2]]  # 3-P3/8
+            - [-1, 6, C3, [256]]
+            - [-1, 1, Conv, [512, 3, 2]]  # 5-P4/16
+            - [-1, 9, C3, [512]]
+            - [-1, 1, Conv, [1024, 3, 2]]  # 7-P5/32
+            - [-1, 3, C3, [1024]]
+            - [-1, 1, SPPF, [1024, 5]]  # 9
 因此，我们可以将冻结列表定义为包含所有名称中包含 "model.0.- 模型.9. "的模块：
-    python train.py --freeze 10
+            python train.py --freeze 10
 由于迁移训练选择的模型一般具有泛化的提取特征能力，冻结骨干架构可以：
   1) 保留预训练模型在源任务上学到的特征提取能力；
   2) 由于迁移训练时的100张已标注图片被我们去掉两个特征，我们不希望模型学习到这个数据集的特征，会影响最终模型对**草莓不可采摘**和**草莓可采摘**特征的判断,
